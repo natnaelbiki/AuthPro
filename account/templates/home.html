@@ -1,0 +1,44 @@
+<!-- templates/home.html-->
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+<div class="navbar">
+    <div class="navbar-logo">
+        <span>CBE ATM tools</span>
+    </div>
+     <div class="nav-menu">
+        <div class="nav-item"><a href="{% url 'home' %}" style="color: white; text-decoration: none;">Home</a></div>
+        <div class="nav-item">
+            {{ user.username }}
+            <div class="dropdown-content">
+                <form action="{% url 'logout' %}" method="post">
+                	{% csrf_token %}
+                	<button type="submit">Log Out</button>
+                </form>                
+            </div>
+        </div>
+     </div>
+</div>
+
+<!-- If not user-->
+{% else %}
+<div class="navbar">
+    <div class="navbar-logo">
+        <span>CBE ATM tools</span>
+    </div>
+     <div class="nav-menu">
+        <div class="nav-item"><a href="{% url 'login' %}" style="color: white; text-decoration: none;">Login</a></div>
+        <div class="nav-item"><a href="{% url 'login' %}" style="color: white; text-decoration: none;">Register</a></div>
+     </div>
+</div>
+<div>
+	<center>
+		<h4>You are not logged in</h4>
+	</center>
+
+</div>
+{% endif %}
+{% endblock %}
